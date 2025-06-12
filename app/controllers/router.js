@@ -29,7 +29,7 @@ import VolunteerView from '../views/MoreView/volunteer';
 import TermsView from '../views/MoreView/terms';
 import PrivacyView from '../views/MoreView/privacy';
 import LicensesView from '../views/MoreView/licenses';
-import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
+import { CardStyleInterpolators } from 'react-navigation-stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { phoneCall } from '../api/communications';
 import { customTabBar } from './customTabBar';

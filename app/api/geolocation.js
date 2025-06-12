@@ -1,4 +1,4 @@
-import Geocoder from 'react-native-geocoder';
+import Geocoder from 'react-native-geocoding';
 import { showMessage } from 'react-native-messages';
 import { Platform, PermissionsAndroid } from 'react-native';
 

@@ -9,11 +9,11 @@ import { MessageBar } from 'react-native-messages'
 // Use TabsInDrawer if we want a Drawer from the left, otherwise just Tabs at
 // the bottom
 class App extends Component {
-    componentDidMount() {
+    /*componentDidMount() {
         setTimeout(() => {
             SplashScreen.hide()
         }, 2000)
-    }
+    }*/
 
     render() {
         return (
