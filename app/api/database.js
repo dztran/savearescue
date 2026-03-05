@@ -2,7 +2,7 @@ import SQLiteStorage from 'react-native-sqlite-storage';
 import { Platform } from 'react-native';
 
 SQLiteStorage.DEBUG(__DEV__);       // 启动调试信息
-SQLiteStorage.enablePromise(true);  // 使用 promise(true) 或者 callback(false)
+SQLiteStorage.enablePromise(true);  // promise(true) 或者 callback(false)
 
 export default class SQLite {
     static delete(database) {
