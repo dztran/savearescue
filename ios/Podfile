@@ -1,65 +1,34 @@
-# You Podfile should look similar to this file. React Native currently does not support use_frameworks!
-source 'https://github.com/CocoaPods/Specs.git'
+# Resolve react_native_pods.rb with node to allow for hoisting
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
 
-# Uncomment the next line to define a global platform for your project
-platform :ios, '9.0'
+platform :ios, min_ios_version_supported
+prepare_react_native_project!
 
-target 'savearescue' do
-  rn_path = '../node_modules/react-native'
-  rn_maps_path = '../node_modules/react-native-maps'
-
-  # See http://facebook.github.io/react-native/docs/integration-with-existing-apps.html#configuring-cocoapods-dependencies
-  pod 'yoga', path: "#{rn_path}/ReactCommon/yoga/yoga.podspec"
-  pod 'React', path: rn_path, subspecs: [
-    'Core',
-    'CxxBridge',
-    'DevSupport',
-    'RCTActionSheet',
-    'RCTAnimation',
-    'RCTGeolocation',
-    'RCTImage',
-    'RCTLinkingIOS',
-    'RCTNetwork',
-    'RCTSettings',
-    'RCTText',
-    'RCTVibration',
-    'RCTWebSocket',
-  ]
-
-  # React Native third party dependencies podspecs
-  pod 'DoubleConversion', :podspec => "#{rn_path}/third-party-podspecs/DoubleConversion.podspec"
-  pod 'glog', :podspec => "#{rn_path}/third-party-podspecs/glog.podspec"
-  # If you are using React Native <0.54, you will get the following error:
-  # "The name of the given podspec `GLog` doesn't match the expected one `glog`"
-  # Use the following line instead:
-  #pod 'GLog', :podspec => "#{rn_path}/third-party-podspecs/GLog.podspec"
-  pod 'Folly', :podspec => "#{rn_path}/third-party-podspecs/Folly.podspec"
-
-  # react-native-maps dependencies
-  pod 'react-native-maps', path: rn_maps_path
-  pod 'react-native-google-maps', path: rn_maps_path  # Remove this line if you don't want to support GoogleMaps on iOS
-  pod 'GoogleMaps'  # Remove this line if you don't want to support GoogleMaps on iOS
-  pod 'Google-Maps-iOS-Utils' # Remove this line if you don't want to support GoogleMaps on iOS
-  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
-
-
-
-  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
-
+linkage = ENV['USE_FRAMEWORKS']
+if linkage != nil
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! :linkage => linkage.to_sym
 end
 
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    if target.name == 'react-native-google-maps'
-      target.build_configurations.each do |config|
-        config.build_settings['CLANG_ENABLE_MODULES'] = 'No'
-      end
-    end
-    if target.name == "React"
-      target.remove_from_project
-    end
-    if target.name == "yoga"
-      target.remove_from_project
-    end
+target 'savearescue' do
+  config = use_native_modules!
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  post_install do |installer|
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false,
+      # :ccache_enabled => true
+    )
   end
 end

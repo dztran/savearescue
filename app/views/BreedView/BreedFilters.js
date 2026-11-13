@@ -1,9 +1,9 @@
-import R from 'ramda';
+import * as R from 'ramda';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, ScrollView, TouchableOpacity, Text } from 'react-native';
 import { connect } from 'react-redux';
-import { Icon } from 'react-native-elements';
+import Icon from '../../components/Icon';
 import RangeInput from '../../components/InputToggles/RangeInput';
 import Button from '../../components/Button';
 import { Actions as BreedActions, breedValues } from '../../data/breedSearch';
@@ -40,7 +40,7 @@ class BreedFilters extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         const nextFilters = getStateFilters(nextProps);
         if (R.equals(this.state.filters, nextFilters)) {
             this.setState({ filters: nextFilters });

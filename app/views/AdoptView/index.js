@@ -1,11 +1,11 @@
-import R from 'ramda';
+import * as R from 'ramda';
 import React, { Component } from 'react';
 import { View, Text, Platform, Share, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Actions as PetActions } from '../../data/petSearch';
-import {Button, Icon} from 'react-native-elements';
-import Carousel from 'react-native-snap-carousel';
+import Icon from '../../components/Icon';
+import Carousel from '../../components/Carousel';
 import { sliderWidth, itemWidth } from './CardFlip.styles';
 import CardFlip from './CardFlip';
 import styles, { colors } from './styles';
@@ -77,11 +77,11 @@ class AdoptView extends Component {
         _carousel = null;
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.loadInitialResults();
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if (__DEV__) { console.log(nextProps); }
         const nextFilters = getStateFilters(nextProps.filters);
         if (!R.equals(this.state.filters, nextFilters)) {
@@ -322,11 +322,11 @@ class AdoptView extends Component {
             <View style={styles.mainContainer__full}>
                 <View style={styles.toolbar}>
                     <Icon iconStyle={styles.toolbarButton} name='menu' type='iconicon' activeOpacity={0.4}
-                        underlayColor='transparent' color={colors.white} onPress={() => this.props.navigation.navigate("DrawerOpen")} />
+                        underlayColor='transparent' color={colors.white} onPress={() => this.props.navigation.openDrawer()} />
                     <Text style={styles.toolbarTitle}>{this.state.title}</Text>
                     {(this.state.favorites && this.state.favorites.length) ? <Icon iconStyle={styles.toolbarButton}
                         activeOpacity={0.5}
-                        name={this.state.favScreen ? 'ios-images' : 'star'}
+                        name={this.state.favScreen ? 'images' : 'star'}
                         type={this.state.favScreen ? 'ionicon' : 'font-awesome'}
                         underlayColor='transparent'
                         color={colors.white}

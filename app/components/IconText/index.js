@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, TouchableOpacity, View, ViewPropTypes } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import styles, {INPUT_HEIGHT, colors} from './styles';
 
@@ -15,10 +15,10 @@ const IconText = ({ style, styleText, styleIcon, onPress, value, icon }) => (
 );
 
 IconText.propTypes = {
-    style: ViewPropTypes.style,
-    styleText: Text.propTypes.style,
-    styleIcon: Icon.propTypes.style,
-    onPress: TouchableOpacity.propTypes.onPress,
+    style: PropTypes.any,
+    styleText: PropTypes.any,
+    styleIcon: PropTypes.any,
+    onPress: PropTypes.func,
     icon: PropTypes.string,
     value: PropTypes.string,
 };

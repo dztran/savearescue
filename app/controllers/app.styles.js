@@ -1,7 +1,10 @@
+import { initialWindowMetrics } from 'react-native-safe-area-context';
 import { Platform, PixelRatio } from 'react-native';
 
 export const NAV_BAR_HEIGHT = 44;
-export const STATUS_BAR_HEIGHT = Platform.select({ ios: 20, android: 0 });
+// Top safe-area inset (status bar, notch or Dynamic Island). Modern iOS devices and
+// Android 15+ edge-to-edge layouts need more than the old fixed 20pt.
+export const STATUS_BAR_HEIGHT = (initialWindowMetrics && initialWindowMetrics.insets.top) || Platform.select({ ios: 20, android: 0 });
 export const TAB_BAR_HEIGHT = 48;
 export const INPUT_HEIGHT = 50;
 export const INPUT_FONT_SIZE = 14;

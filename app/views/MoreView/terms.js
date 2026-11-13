@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     Platform
 } from 'react-native';
-import { Icon } from 'react-native-elements';
+import Icon from '../../components/Icon';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import PdfView from '../../components/PdfView';
 import styles, { colors} from './styles';
@@ -17,7 +17,7 @@ export default class TermsView extends Component {
     static navigationOptions = {
         header: null,
         drawerLabel: 'Terms of Service',
-        drawerIcon: (<Ionicons name="ios-clipboard" size={24} color={colors.primary} />)
+        drawerIcon: (<Ionicons name="clipboard" size={24} color={colors.primary} />)
     };
 
     cancel = () => {

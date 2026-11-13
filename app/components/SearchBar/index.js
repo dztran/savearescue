@@ -1,3 +1,4 @@
+import { initialWindowMetrics } from 'react-native-safe-area-context';
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -15,7 +16,9 @@ import { debounce } from 'lodash/function';
 import { getLocation } from '../../api/geolocation';
 
 const NAV_BAR_HEIGHT = 44;
-const STATUS_BAR_HEIGHT = Platform.select({ ios: 20, android: 0 });
+// Top safe-area inset (status bar, notch or Dynamic Island). Modern iOS devices and
+// Android 15+ edge-to-edge layouts need more than the old fixed 20pt.
+const STATUS_BAR_HEIGHT = (initialWindowMetrics && initialWindowMetrics.insets.top) || Platform.select({ ios: 20, android: 0 });
 
 const INITIAL_TOP = -(NAV_BAR_HEIGHT + STATUS_BAR_HEIGHT);
 

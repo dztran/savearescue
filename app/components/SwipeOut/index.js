@@ -12,7 +12,7 @@ import {
   StyleSheet,
   Text,
   View,
-  ViewPropTypes,
+  
 } from 'react-native';
 
 const SwipeoutBtn = createReactClass({
@@ -107,7 +107,7 @@ const Swipeout = createReactClass({
     onClose: PropTypes.func,
     right: PropTypes.array,
     scroll: PropTypes.func,
-    style: ViewPropTypes.style,
+    style: PropTypes.any,
     sensitivity: PropTypes.number,
     buttonWidth: PropTypes.number,
     disabled: PropTypes.bool,
@@ -138,7 +138,7 @@ const Swipeout = createReactClass({
     };
   },
 
-  componentWillMount: function() {
+  UNSAFE_componentWillMount: function() {
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: (event, gestureState) => true,
       onStartShouldSetPanResponderCapture: (event, gestureState) =>
@@ -155,7 +155,7 @@ const Swipeout = createReactClass({
     });
   },
 
-  componentWillReceiveProps: function(nextProps) {
+  UNSAFE_componentWillReceiveProps: function(nextProps) {
     if (nextProps.close) this._close();
     if (nextProps.openRight) { this._openRight(); }
     else { this._close(); }
@@ -169,7 +169,7 @@ const Swipeout = createReactClass({
     } else {
       //this._callOnClose("pan");
     }
-    this.refs.swipeoutContent.measure((ox, oy, width, height) => {
+    this._swipeoutContent.measure((ox, oy, width, height) => {
       let buttonWidth = this.props.buttonWidth || (width/5);
       this.setState({
         btnWidth: buttonWidth,
@@ -299,7 +299,7 @@ const Swipeout = createReactClass({
   },
 
   _openRight: function() {
-    this.refs.swipeoutContent.measure((ox, oy, width, height) => {
+    this._swipeoutContent.measure((ox, oy, width, height) => {
       this.setState({
         btnWidth: (width/5),
         btnsRightWidth: this.props.right ? (width/5)*this.props.right.length : 0,
@@ -317,7 +317,7 @@ const Swipeout = createReactClass({
   },
 
   _openLeft: function() {
-    this.refs.swipeoutContent.measure((ox, oy, width, height) => {
+    this._swipeoutContent.measure((ox, oy, width, height) => {
       this.setState({
         btnWidth: (width/5),
         btnsLeftWidth: this.props.left ? (width/5)*this.props.left.length : 0,
@@ -380,7 +380,7 @@ const Swipeout = createReactClass({
     return (
       <View style={styleSwipeout}>
         <View
-          ref="swipeoutContent"
+          ref={(c) => { this._swipeoutContent = c; }}
           style={styleContent}
           onLayout={this._onLayout}
           {...this._panResponder.panHandlers}

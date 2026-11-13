@@ -14,6 +14,7 @@ import { Actions as GlobalActions } from '../../data/globals';
 import { phoneCall } from '../../api/communications';
 import styles, { PHONE_NUMBER, colors } from './styles';
 import Progress from './progress';
+import { navigateTo } from '../../controllers/navigation';
 import { downloadFile, isFileExists, checkSize, readMetaData} from '../../api/downloader';
 
 const dbURL = "https://savearescue.org/app_downloads/savearescue.db";
@@ -25,7 +26,7 @@ class HomeView extends Component {
     static navigationOptions = {
         header: null,
         drawerLabel: 'Home',
-        drawerIcon: (<Ionicons name="ios-home" size={24} color={colors.primary} />)
+        drawerIcon: (<Ionicons name="home" size={24} color={colors.primary} />)
     };
 
     static propTypes = {
@@ -146,7 +147,7 @@ class HomeView extends Component {
                         phoneCall(routeName, true);
                     }
                     else {
-                        this.props.navigation.navigate(routeName);
+                        navigateTo(this.props.navigation, routeName);
                     }
                 }}
                 underlayColor='transparent'>
@@ -174,11 +175,11 @@ class HomeView extends Component {
                 <Image style={styles.image} source={require('../../assets/banner.png')}/>
                 <View style={{flexDirection:'column'}}>
                     <Button style={styles.button} onPress={() => { phoneCall(PHONE_NUMBER, true); }} title="EMERGENCY HOTLINE" icon="ambulance"/>
-                    <Button style={styles.button} onPress={() => { this.props.navigation.navigate('AdoptView'); }} title="ADOPTABLES" icon="heart" />
-                    <Button style={styles.button} onPress={() => { this.props.navigation.navigate('ShelterView'); }} title="RESCUES & SHELTERS" icon="home"/>
-                    <Button style={styles.button} onPress={() => { this.props.navigation.navigate('PetServices'); }} title="PET SERVICES" icon="handshake-o"/>
-                    <Button style={styles.button} onPress={() => { this.props.navigation.navigate('BreedView'); }} title="BREEDS A-Z" icon="paw" />
-                    <Button style={styles.button} onPress={() => { this.props.navigation.navigate('CompanyView'); }} title="COMPANY INFO" icon="navicon"/>
+                    <Button style={styles.button} onPress={() => { navigateTo(this.props.navigation, 'AdoptView'); }} title="ADOPTABLES" icon="heart" />
+                    <Button style={styles.button} onPress={() => { navigateTo(this.props.navigation, 'ShelterView'); }} title="RESCUES & SHELTERS" icon="home"/>
+                    <Button style={styles.button} onPress={() => { navigateTo(this.props.navigation, 'PetServices'); }} title="PET SERVICES" icon="handshake-o"/>
+                    <Button style={styles.button} onPress={() => { navigateTo(this.props.navigation, 'BreedView'); }} title="BREEDS A-Z" icon="paw" />
+                    <Button style={styles.button} onPress={() => { navigateTo(this.props.navigation, 'CompanyView'); }} title="COMPANY INFO" icon="navicon"/>
                 </View>
             </View>
         );

@@ -7,7 +7,7 @@ import {
     Switch,
     Platform
 } from 'react-native';
-import { Icon } from 'react-native-elements';
+import Icon from '../../components/Icon';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LabelIconText from '../../components/IconText/LabelIconText';
 import styles, { colors, INPUT_HEIGHT } from './styles';
@@ -37,7 +37,7 @@ class SettingsView extends Component {
     static navigationOptions = {
         header: null,
         drawerLabel: 'Settings',
-        drawerIcon: (<Ionicons name="ios-settings" size={24} color={colors.primary} />)
+        drawerIcon: (<Ionicons name="settings" size={24} color={colors.primary} />)
     };
 
     static propTypes = {
@@ -93,7 +93,7 @@ class SettingsView extends Component {
         });
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.loadInitialResults();
     }
 

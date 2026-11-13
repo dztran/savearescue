@@ -32,8 +32,8 @@ const NativeButton = createReactClass({
   propTypes: {
     // Extract parent props
     ...TouchableWithoutFeedback.propTypes,
-    textStyle: Text.propTypes.style,
-    disabledStyle: Text.propTypes.style,
+    textStyle: PropTypes.any,
+    disabledStyle: PropTypes.any,
     children: PropTypes.node.isRequired,
     underlayColor: PropTypes.string,
     background: (TouchableNativeFeedback.propTypes) ? TouchableNativeFeedback.propTypes.background : PropTypes.any,

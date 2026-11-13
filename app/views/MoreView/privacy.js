@@ -5,7 +5,7 @@ import {
     Text,
     TouchableOpacity,
 } from 'react-native';
-import { Icon } from 'react-native-elements';
+import Icon from '../../components/Icon';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import PdfView from '../../components/PdfView';
 import styles, { colors} from './styles';
@@ -16,7 +16,7 @@ export default class PrivacyView extends Component {
     static navigationOptions = {
         header: null,
         drawerLabel: 'Privacy Policy',
-        drawerIcon: (<Ionicons name="ios-lock" size={24} color={colors.primary} />)
+        drawerIcon: (<Ionicons name="lock-closed" size={24} color={colors.primary} />)
     };
 
     cancel = () => {

@@ -1,11 +1,16 @@
-import { AppRegistry, Text } from 'react-native';
+import 'react-native-gesture-handler';
+import { AppRegistry } from 'react-native';
+import Geolocation from '@react-native-community/geolocation';
 import App from './app/controllers/app';
+import { name as appName } from './app.json';
 
-// Turn off Font assesbility
-let originalGetDefaultProps = Text.defaultProps;
-Text.defaultProps = function()
-{
-    return { ...originalGetDefaultProps, allowFontScaling: false, };
-};
+// navigator.geolocation was removed from React Native core; the app still
+// calls it, so restore it from the community module.
+if (!global.navigator) {
+    global.navigator = {};
+}
+if (!global.navigator.geolocation) {
+    global.navigator.geolocation = Geolocation;
+}
 
-AppRegistry.registerComponent('savearescue', () => App);
+AppRegistry.registerComponent(appName, () => App);

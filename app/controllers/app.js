@@ -1,28 +1,29 @@
 import React, { Component } from 'react';
-import { AppNavigator, TabsInDrawer,  }from './router';
-import { View } from 'react-native';
+import { StatusBar } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
+import { MessageBar } from 'react-native-messages';
+import { TabsInDrawer } from './router';
 import store from '../data/store';
-import SplashScreen from 'react-native-splash-screen';
-import { MessageBar } from 'react-native-messages'
 
 // Use TabsInDrawer if we want a Drawer from the left, otherwise just Tabs at
 // the bottom
 class App extends Component {
-    /*componentDidMount() {
-        setTimeout(() => {
-            SplashScreen.hide()
-        }, 2000)
-    }*/
-
     render() {
         return (
-            <View style={{ flex: 1 }}>
-                <Provider store={store}>
-                    <TabsInDrawer />
-                </Provider>
-                <MessageBar/>
-            </View>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+                <SafeAreaProvider>
+                    <StatusBar barStyle="dark-content" />
+                    <Provider store={store}>
+                        <NavigationContainer>
+                            <TabsInDrawer />
+                        </NavigationContainer>
+                    </Provider>
+                    <MessageBar />
+                </SafeAreaProvider>
+            </GestureHandlerRootView>
         );
     }
 }

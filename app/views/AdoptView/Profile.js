@@ -51,7 +51,7 @@ export default class Profile extends Component {
                   "I am interested adopting the pet with the description: " + description);
     }
 
-    componentWillReceiveProps(newProps) {
+    UNSAFE_componentWillReceiveProps(newProps) {
         this.setState({visible: newProps.visible});
     }
 

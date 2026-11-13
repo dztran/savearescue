@@ -39,7 +39,7 @@ export default class Panel extends PureComponent {
         this.swipeOutRef = null;
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if (nextProps.close) {
             this.setState({ opened: false });
         }
@@ -120,7 +120,7 @@ export default class Panel extends PureComponent {
                 text: 'Call',
                 backgroundColor: colors.call,
                 onPress: this.linkPhone,
-                component: (<SideButton title="Call" iconName="ios-call"/>)
+                component: (<SideButton title="Call" iconName="call"/>)
             });
         }
         // map
@@ -128,7 +128,7 @@ export default class Panel extends PureComponent {
             text: 'Direction',
             backgroundColor: colors.map,
             onPress: this.linkDirection,
-            component: (<SideButton title="Direction" iconName="ios-navigate"/>)
+            component: (<SideButton title="Direction" iconName="navigate"/>)
         });
 
         return (

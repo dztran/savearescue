@@ -1,3 +1,4 @@
+import { initialWindowMetrics } from 'react-native-safe-area-context';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -25,7 +26,9 @@ import debounce from 'lodash.debounce';
 const WINDOW = Dimensions.get('window');
 
 const NAV_BAR_HEIGHT = 44;
-const STATUS_BAR_HEIGHT = Platform.select({ ios: 20, android: 0 });
+// Top safe-area inset (status bar, notch or Dynamic Island). Modern iOS devices and
+// Android 15+ edge-to-edge layouts need more than the old fixed 20pt.
+const STATUS_BAR_HEIGHT = (initialWindowMetrics && initialWindowMetrics.insets.top) || Platform.select({ ios: 20, android: 0 });
 
 const INITIAL_TOP = -(NAV_BAR_HEIGHT + STATUS_BAR_HEIGHT);
 
@@ -190,7 +193,7 @@ export default class GooglePlacesAutocomplete extends Component {
         return [...res, ...results];
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this._request = this.props.debounce
         ? debounce(this._request, this.props.debounce)
         : this._request;
@@ -203,7 +206,7 @@ export default class GooglePlacesAutocomplete extends Component {
         this._isMounted = true;
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if (nextProps.listViewDisplayed !== 'auto') {
             this.setState({
                 listViewDisplayed: nextProps.listViewDisplayed,
@@ -1108,7 +1111,7 @@ const create = function create(options = {}) {
         render() {
             return (
                 <GooglePlacesAutocomplete
-                ref="GooglePlacesAutocomplete"
+                
                 {...options}
                 />
             );

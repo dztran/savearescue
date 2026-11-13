@@ -31,7 +31,7 @@ export default class CardFlip extends PureComponent {
         }
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.animatedValue = new Animated.Value(0);
         this.value = 0;
         this.animatedValue.addListener(({ value }) => {

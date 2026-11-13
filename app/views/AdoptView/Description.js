@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
-import Modal from "react-native-modal";
-import { Icon } from 'react-native-elements';
+import Modal from "../../components/Modal";
+import Icon from '../../components/Icon';
 import styles, { colors } from './Description.styles';
 import PropTypes from 'prop-types';
 

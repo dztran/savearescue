@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, TouchableOpacity, ViewPropTypes } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styles, {INPUT_HEIGHT} from './styles';
 
 class RangeInput extends Component {
     static propTypes = {
         label: PropTypes.string,
         height: PropTypes.number,
-        style: ViewPropTypes.style,
-        labelStyle: ViewPropTypes.style,
+        style: PropTypes.any,
+        labelStyle: PropTypes.any,
         option: PropTypes.shape({
             min: PropTypes.number.isRequired,
             max: PropTypes.number.isRequired

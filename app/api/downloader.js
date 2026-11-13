@@ -3,16 +3,19 @@
 */
 import { Platform} from 'react-native';
 import { showMessage } from 'react-native-messages';
-const RNFS = require('react-native-fs');
+const RNFS = require('@dr.pogodin/react-native-fs');
 
 let jobId = -1;
 
 export const checkSize = async (filepath, size)  => {
     let stat = await RNFS.stat(filepath).catch((err) => {
-        showMessage(err.message, {duration: 2000});
-        return true;
+        if (__DEV__) { console.log(err.message); }
+        return null;
     });
     if (__DEV__) { console.log(stat); }
+
+    // Missing file: treat as needing a (re)download.
+    if (!stat) { return true; }
 
     if (stat.isFile() && stat.size < size) {
         let ret = await RNFS.unlink(filepath).catch((err) => {
@@ -40,7 +43,7 @@ export const isFileExists = async (url) => {
     const downloadDest = Platform.OS === 'ios' ? `${RNFS.LibraryDirectoryPath}/LocalDatabase/${fileName}`
                         : `${RNFS.DocumentDirectoryPath}/${fileName}`;
 
-    result = await RNFS.exists(downloadDest).catch((err) => {
+    const result = await RNFS.exists(downloadDest).catch((err) => {
             showMessage(err.message, {duration: 2000});
             return ({ res: {'msg': err }, database: { fileName: '', isLoaded: false } });
         });
@@ -75,17 +78,24 @@ export const downloadFile = async (background, url, downloadDest, progressFn) =>
 
     const progressDivider = 1;
 
+    // The iOS destination folder (Library/LocalDatabase) does not exist on a fresh install.
+    const destDir = downloadDest.substring(0, downloadDest.lastIndexOf("/"));
+    await RNFS.mkdir(destDir).catch(() => {});
+
     const ret = RNFS.downloadFile({ fromUrl: url, toFile: downloadDest,
                                 begin, progress, background, progressDivider });
 
     jobId = ret.jobId;
 
-    result = await ret.promise.catch(err => {
+    const result = await ret.promise.catch(err => {
         showMessage(err.message, {duration: 2000});
         jobId = -1;
-        return ({ res: {'msg':err}, database: { fileName: '', isLoaded: false } });
+        return null;
     });
 
     jobId = -1;
+    if (!result || (result.statusCode && result.statusCode >= 400)) {
+        return ({ res: { msg: result ? `HTTP ${result.statusCode}` : "download failed" }, database: { fileName: "", isLoaded: false } });
+    }
     return ({ res: result, database: { fileName: downloadDest, isLoaded: true } });
 }

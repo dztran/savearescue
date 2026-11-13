@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, TouchableOpacity, ViewPropTypes } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styles, {INPUT_HEIGHT} from './styles';
 
 class InputToggles extends Component {
     static propTypes = {
         pill: PropTypes.bool,
         height: PropTypes.number,
-        style: ViewPropTypes.style,
-        labelStyle: ViewPropTypes.style,
+        style: PropTypes.any,
+        labelStyle: PropTypes.any,
         multiSelect: PropTypes.bool,
         isReadOnly: PropTypes.bool,
         options: PropTypes.arrayOf(PropTypes.string).isRequired,

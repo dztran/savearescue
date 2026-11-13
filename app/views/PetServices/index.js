@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import R from 'ramda';
+import * as R from 'ramda';
 import {Text, TextInput, View, Image, TouchableOpacity, FlatList, Platform} from 'react-native';
 import ModalSelector from 'react-native-modal-selector';
-import {Button, Icon} from 'react-native-elements'
+import Icon from '../../components/Icon';
 import styles from './styles';
 import MapView from "react-native-maps";
 import PropTypes from 'prop-types';
@@ -91,7 +91,7 @@ class PetServices extends Component {
         if (__DEV__) { console.log(this.dataSetS); }
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         const nextFilters = getStateFilters(nextProps.filters);
         if (!R.equals(this.state.filters, nextFilters)) {
             if (__DEV__) { console.log('PetServices set filters'); console.log(nextFilters) }
@@ -117,7 +117,7 @@ class PetServices extends Component {
         }
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this._loadInitialResults();
     }
 
@@ -311,7 +311,7 @@ class PetServices extends Component {
             <View style={styles.mainContainer__full}>
                 <View style={styles.toolbar}>
                     <Icon iconStyle={styles.toolbarButton} name='menu' type='iconicon' activeOpacity={0.4}
-                        underlayColor='transparent' color={colors.white} onPress={() => { this.props.navigation.navigate("DrawerOpen")} }/>
+                        underlayColor='transparent' color={colors.white} onPress={() => { this.props.navigation.openDrawer()} }/>
                     <ModalSelector childrenContainerStyle={styles.content}
                         data={this.dataSetS}
                         selectedKey={this.state.filters.term}

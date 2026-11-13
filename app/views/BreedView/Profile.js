@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView, TouchableOpacity, Text } from 'react-native';
-import { Icon } from 'react-native-elements';
+import Icon from '../../components/Icon';
 import InputToggles from '../../components/InputToggles';
 import Button from '../../components/Button';
 import { Actions as BreedActions } from '../../data/breedSearch';
@@ -14,12 +14,12 @@ export default class Profile extends Component {
         super(props)
 
         this.state = {
-            params: this.props.navigation.state.params,
+            params: this.props.route.params,
             error: undefined
         }
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         try {
             this.initData();
         } catch (error) {

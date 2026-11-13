@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Text, View } from 'react-native';
-import Modal from "react-native-modal";
+import Modal from "../../components/Modal";
 import styles, { colors, progressWidth } from './styles';
 import ProgressBar from 'react-native-progress/Bar';
 

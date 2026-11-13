@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, TouchableOpacity, View, ViewPropTypes } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles, {INPUT_HEIGHT} from './styles';
 
@@ -14,8 +14,8 @@ const Button = ({ style, onPress, title, icon }) => (
 );
 
 Button.propTypes = {
-    style: ViewPropTypes.style,
-    onPress: TouchableOpacity.propTypes.onPress,
+    style: PropTypes.any,
+    onPress: PropTypes.func,
     title: PropTypes.string.isRequired,
 };
 

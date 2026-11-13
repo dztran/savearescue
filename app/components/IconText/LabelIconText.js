@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, TouchableOpacity, View, ViewPropTypes } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import styles, {INPUT_HEIGHT, colors} from './styles';
 
@@ -18,8 +18,8 @@ const LabelIconText = ({ style, onPress, title, value, icon }) => (
 );
 
 LabelIconText.propTypes = {
-    style: ViewPropTypes.style,
-    onPress: TouchableOpacity.propTypes.onPress,
+    style: PropTypes.any,
+    onPress: PropTypes.func,
     title: PropTypes.string,
     icon: PropTypes.string,
     value: PropTypes.string,

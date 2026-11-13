@@ -1,4 +1,4 @@
-import R from 'ramda';
+import * as R from 'ramda';
 import React, { Component } from "react";
 import {
     StyleSheet,
@@ -10,7 +10,7 @@ import {
     TouchableOpacity,
     Platform
 } from "react-native";
-import { Icon } from 'react-native-elements'
+import Icon from '../../components/Icon';
 import MapView from "react-native-maps";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -96,7 +96,7 @@ class ShelterView extends Component {
         this.animating = false;
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         const nextFilters = getStateFilters(nextProps.filters);
         if (!R.equals(this.state.filters, nextFilters)) {
             this.setState({ filters: nextFilters });
@@ -117,7 +117,7 @@ class ShelterView extends Component {
         }
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this._loadInitialResults();
     }
 
@@ -291,7 +291,7 @@ class ShelterView extends Component {
             <View style={styles.mainContainer__full}>
                 <View style={styles.toolbar}>
                     <Icon iconStyle={styles.toolbarButton} name='menu' type='iconicon' activeOpacity={0.4}
-                        underlayColor='transparent' color={colors.white} onPress={() => this.props.navigation.navigate("DrawerOpen")} />
+                        underlayColor='transparent' color={colors.white} onPress={() => this.props.navigation.openDrawer()} />
                     <Text style={styles.toolbarTitle}>SHELTERS</Text>
                     <Icon iconStyle={styles.toolbarButton} name='search' type='iconicon' activeOpacity={0.4}
                         underlayColor='transparent' color={colors.white} onPress={() => this.searchBarRef.show()} />

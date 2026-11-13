@@ -1,9 +1,9 @@
-import R from 'ramda';
+import * as R from 'ramda';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, ScrollView, TouchableOpacity, Text, TextInput } from 'react-native';
 import { connect } from 'react-redux';
-import { Icon } from 'react-native-elements';
+import Icon from '../../components/Icon';
 import InputToggles from '../../components/InputToggles';
 import Button from '../../components/Button';
 import GooglePlacesInput from '../../components/GooglePlacesAutocomplete/GooglePlacesInput';
@@ -64,7 +64,7 @@ class PetFilters extends Component {
         this.searchBarRef.show();
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         const nextFilters = getStateFilters(nextProps);
         if (R.equals(this.state.filters, nextFilters)) {
             this.setState({

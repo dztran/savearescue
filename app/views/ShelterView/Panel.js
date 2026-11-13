@@ -31,7 +31,7 @@ export default class Panel extends PureComponent {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if (nextProps.close) {
             this.setState({ opened: false });
         }
@@ -122,7 +122,7 @@ export default class Panel extends PureComponent {
                 text: 'Call',
                 backgroundColor: colors.call,
                 onPress: this.linkPhone,
-                component: (<SideButton title="Call" iconName="ios-call"/>)
+                component: (<SideButton title="Call" iconName="call"/>)
             });
         }
         if (email) {
@@ -130,7 +130,7 @@ export default class Panel extends PureComponent {
                 text: 'Email',
                 backgroundColor: colors.email,
                 onPress: this.linkEmail,
-                component: (<SideButton title="Email" iconName="ios-mail"/>)
+                component: (<SideButton title="Email" iconName="mail"/>)
             });
         }
 
@@ -139,7 +139,7 @@ export default class Panel extends PureComponent {
             text: 'Direction',
             backgroundColor: colors.map,
             onPress: this.linkDirection,
-            component: (<SideButton title="Direction" iconName="ios-navigate"/>)
+            component: (<SideButton title="Direction" iconName="navigate"/>)
         });
 
         return (

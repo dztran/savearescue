@@ -1,4 +1,4 @@
-import R from 'ramda';
+import * as R from 'ramda';
 import { apiFetch2 } from './fetch';
 import { getValue, NUM_RESULTS } from './settings';
 

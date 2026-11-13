@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     Switch
 } from 'react-native';
-import { Icon } from 'react-native-elements';
+import Icon from '../../components/Icon';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LabelIconText from '../../components/IconText/LabelIconText';
 import styles, { colors, INPUT_HEIGHT, PHONE_NUMBER } from './styles';
@@ -16,7 +16,7 @@ export default class CompanyView extends Component {
     static navigationOptions = {
         header: null,
         drawerLabel: 'Company Information',
-        drawerIcon: (<Ionicons name="ios-information-circle" size={24} color={colors.primary} />)
+        drawerIcon: (<Ionicons name="information-circle" size={24} color={colors.primary} />)
     };
 
     cancel = () => {
